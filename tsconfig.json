@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": ["ES2024"],
+    "outDir": "lib",
+    "paths": {
+      "src": ["src"]
+    },
+    "target": "ES2024"
+  },
+  "exclude": ["lib*/**/*"],
+  "extends": "skuba/config/tsconfig.json"
+}

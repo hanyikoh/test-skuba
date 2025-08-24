@@ -1,0 +1,38 @@
+agents:
+  queue: <%- prodBuildkiteQueueName %>
+
+# Allow conditional unblock + dodgy CI stuffs
+
+configs:
+  plugins:
+    - &docker-ecr-cache
+      seek-oss/docker-ecr-cache#v2.2.1:
+        cache-on:
+          - package.json#.packageManager
+          - pnpm-lock.yaml
+          - pnpm-workspace.yaml
+        secrets:
+          - id=npm,src=/var/lib/buildkite-agent/.npmrc
+          - NPM_TOKEN
+
+steps:
+  - label: 🧪 Test & Lint
+    commands:
+      - echo '--- pnpm install --offline'
+      - pnpm install --offline
+      - echo '+++ pnpm test:ci'
+      - pnpm test:ci
+      - echo '--- pnpm lint'
+      - pnpm lint
+    env:
+      GET_GITHUB_TOKEN: please
+      GET_NPM_TOKEN: please
+    plugins:
+      - *docker-ecr-cache
+      - docker-compose#v5.10.0:
+          environment:
+            - GITHUB_API_TOKEN
+          mount-buildkite-agent: true
+          propagate-environment: true
+          run: app
+    timeout_in_minutes: 10

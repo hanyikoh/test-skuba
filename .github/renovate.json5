@@ -1,0 +1,3 @@
+{
+  extends: ['local>seek-jobs/renovate-config', 'github>seek-oss/rynovate'],
+}
