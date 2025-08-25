@@ -1,10 +1,10 @@
 ### Step 1: Install Node.js
 First, you need Node.js installed on your computer since TypeScript runs on top of it.
 
-Go to https://nodejs.org
-Download the LTS (Long Term Support) version
-Run the installer and follow the setup wizard
-Verify installation by opening a terminal/command prompt and typing:
+- Go to https://nodejs.org
+- Download the LTS (Long Term Support) version
+- Run the installer and follow the setup wizard
+- Verify installation by opening a terminal/command prompt and typing:
 ```bash
 node --version
 npm --version
@@ -49,7 +49,9 @@ nodemon: Automatically restarts your app when files change
 
 ### Step 6: Create TypeScript Configuration
 Create a tsconfig.json file in your project root:
+```bash
 npx tsc --init
+```
 This creates a configuration file with sensible defaults. You can also create it manually with basic settings:
 ```json
 {

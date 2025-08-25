@@ -27,7 +27,6 @@ const JobListingSchema = Record({
 
 type JobListing = Static<typeof JobListingSchema>;
 
-// Validate data
 const validatedJob = JobListingSchema.check(unknownData);
 ```
 
@@ -54,7 +53,6 @@ const JobListingSchema = z.object({
 
 type JobListing = z.infer<typeof JobListingSchema>;
 
-// Validate data
 const validatedJob = JobListingSchema.parse(unknownData);
 ```
 
