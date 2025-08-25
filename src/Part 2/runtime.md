@@ -10,10 +10,10 @@ Runtypes is SEEK's preferred choice for runtime validation. It's simple and inte
 
 Pros:
 
-Clean, readable syntax
-Generates TypeScript types from schemas
-Lightweight and fast
-Good error messages
+- Clean, readable syntax
+- Generates TypeScript types from schemas
+- Lightweight and fast
+- Good error messages
 
 Example:
 ```ts
@@ -36,10 +36,11 @@ Zod is another popular validation library with more features but slightly more c
 
 Pros:
 
-More validation methods built-in
-Better TypeScript inference
-Schema composition and transformation
-Larger community
+- More validation methods built-in
+- Better TypeScript inference
+- Schema composition and transformation
+- Larger community
+
 Example:
 
 ```ts
