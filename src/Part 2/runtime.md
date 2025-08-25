@@ -1,13 +1,21 @@
-# Runtime Validation
+### Runtime Validation in TypeScript
+TypeScript types only exist during development and are removed when your code compiles to JavaScript. This means you can't rely on TypeScript to validate data that comes from external sources like APIs, user input, or files at runtime.
 
-Because TypeScript types don’t exist at runtime, having been stripped out in the transpilation process, our type guarantees can only validate the elements that exist at build time. A lot of the programs we write in a web context are either sending or receiving HTTP requests, so we need some way of making sure that the information we receive at runtime matches up with the types we were expecting. As long as we validate all data that crosses our little safely typed boundary, then the internal type guarantees will all hold.
+### Why Runtime Validation Matters
+When your app receives data from outside sources, you need to verify it matches your expected types before using it. Without validation, you might get runtime errors or unexpected behavior.
 
-There are a number of libraries that can achieve this, but a popular choice at SEEK is Runtypes. Using Runtypes, I can set up a schema of what I’m expecting my inputs to look like, and check runtime inputs against it. Runtypes can also generate TypeScript types from our schema, so we have a runtime guarantee that anything that made it past this point conforms to this TypeScript type.
+### Popular Libraries: Runtypes vs Zod
+#### Runtypes
+Runtypes is SEEK's preferred choice for runtime validation. It's simple and integrates well with TypeScript.
 
-There’s a TS Guild talk on this topic (“Runtime validation doesn’t spark Joi”, 2020-06-16) that might also be helpful.
+Pros:
 
-### Define runtime schema
+Clean, readable syntax
+Generates TypeScript types from schemas
+Lightweight and fast
+Good error messages
 
+Example:
 ```ts
 import { Record, String, Array, Static } from 'runtypes';
 
@@ -18,15 +26,55 @@ const JobListingSchema = Record({
 });
 
 type JobListing = Static<typeof JobListingSchema>;
+
+// Validate data
+const validatedJob = JobListingSchema.check(unknownData);
 ```
 
-### Validate API response at runtime
+#### Zod
+Zod is another popular validation library with more features but slightly more complex syntax.
+
+Pros:
+
+More validation methods built-in
+Better TypeScript inference
+Schema composition and transformation
+Larger community
+Example:
 
 ```ts
+import { z } from 'zod';
+
+const JobListingSchema = z.object({
+  title: z.string(),
+  company: z.string(),
+  skills: z.array(z.string()),
+});
+
+type JobListing = z.infer<typeof JobListingSchema>;
+
+// Validate data
+const validatedJob = JobListingSchema.parse(unknownData);
+```
+
+with runtypes:
+```ts
+import { Array } from 'runtypes';
+
 async function fetchJobListings(): Promise<JobListing[]> {
   const response = await fetch('/api/jobs');
   const data = await response.json();
   
   return Array(JobListingSchema).check(data);
+}
+```
+
+with zod:
+```ts
+async function fetchJobListings(): Promise<JobListing[]> {
+  const response = await fetch('/api/jobs');
+  const data = await response.json();
+  
+  return z.array(JobListingSchema).parse(data);
 }
 ```
