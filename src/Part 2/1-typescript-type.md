@@ -1,4 +1,4 @@
-# Credit to Vong Beng for writting this
+### Credit to Vong Beng for writting this
 
 # Your first type
 
