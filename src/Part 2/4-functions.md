@@ -25,3 +25,26 @@ class SalaryCalculator {
   }
 }
 ```
+
+### In Short:
+Preferred Approaches:
+
+- Functions over classes
+- Immutable over mutable state
+- Function composition over class inheritance
+- const declarations (very few let declarations)
+- map or filter for looping instead of for loops
+- Higher order functions and closures
+
+Avoided Practices:
+
+- Global variables
+- Mutable state where possible
+- Traditional class inheritance patterns
+- Imperative looping constructs
+
+Benefits:
+
+- Easier to reason about code
+- Better code comprehension for team members
+- Simplified testing
