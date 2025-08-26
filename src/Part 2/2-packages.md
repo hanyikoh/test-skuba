@@ -24,3 +24,6 @@ function processCandidateData(candidate: CandidateProfile) {
   return candidate.skills.filter(skill => skill.length > 0);
 }
 ```
+
+Example:
+https://github.com/SEEK-Jobs/cm-packages/tree/master/packages
