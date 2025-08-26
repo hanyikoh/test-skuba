@@ -105,5 +105,20 @@ type AddRestaurantAction = {
 type ActionType = 'ADD_RESTAURANT' | 'DELETE_RESTAURANT';
 ```
 
-## Exercise
-Let's type your state and all your actions.
+### Avoid Less Specific
+
+```ts
+function updateJobStatus(jobId: string, status: string): void {
+  ...
+}
+```
+
+### Preferred More Specific
+
+```ts
+type JobStatus = 'draft' | 'published' | 'closed' | 'archived';
+
+function updateJobStatus(jobId: string, status: JobStatus): void {
+  ...
+}
+```
