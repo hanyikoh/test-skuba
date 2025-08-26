@@ -1,3 +1,5 @@
+# Credit to Vong Beng for writting this
+
 # Your first type
 
 Our general rule with TypeScript types is to be as specific and narrow as possible when declaring types. This helps to ensure that consumers know what to pass to your functions and means that you don’t have to do as much defensive programming in your function because the set of possible arguments is smaller.
